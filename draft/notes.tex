@@ -5,13 +5,13 @@
 % --------------------------- Document starts ---------------------------
 % -----------------------------------------------------------------------
 
-\title{Notes on Adversarial Estimation of Structural Models}
+\title{Adversarial Estimation of Network Formation Models}
 \date{}
 
 \begin{document}
 \maketitle
 
-\tableofcontents
+% \tableofcontents
 % \abstract{
 %     The abstract. 
 %     \\
@@ -22,12 +22,58 @@
 % }
 \newpage
 
-\section{Summary of ``An Adversarial approach to structural estimation''}
+Consider a nutshell network formation model, the adjacency matrix \(\bm{A}\) is generated as 
+\[
+    a_{ij} = \I\left\{ \theta _{0, i} + \theta _{0,j} > u_{ij} \right\}, \, i< j, 
+\]
+where \(\theta _{i} \) is the fixed effect for each \(i = 1,2,\cdots, n\), and \(u_{ij} \) follows i.i.d. standard logistic distribution. Let \(a_{ij} = a_{ji} \) for \(i < j\) and \(a_{ii} = 0\).
 
-Based on \citet*[KMG]{kaji/manresa/guillaume:2022:adversarial_est}.
+Denote \(\bm{\theta_{0} } = \left( 
+        \theta _{0, 1}, \theta _{0, 2}, \cdots, \theta _{0, n}  
+    \right) 
+\). For given \(\bm{\theta }\), we can generate
+\[
+    \widetilde{u}_{ij,k} \sim \text{i.i.d.}\Lambda\left( \cdot \right),\, i < j,\, k = 1, 2, \cdots, m,
+\]
+where \(\Lambda\left( u \right) = \left( 1 + e^{-u} \right)^{-1} \) is the CDF of the standard logistic distribution. Transform \(\widetilde{u}_{ij, k} \) to \(\widetilde{d}_{ij, k}\) by
+\[
+    a_{ij, k, \bm{\theta}} = \I \left\{ \theta _{i} + \theta _{j} > \widetilde{u}_{ij, k}  \right\} .
+\]  
+When \(m = 1\), a single network is generated based on parameter \(\bm{\theta }\).
+
+The oracle discriminator,
+\[
+    D_{\bm{\theta } } \left( a_{ij, k}  \right) =  
+    \frac{
+        p_{0}\left( a_{ij, k}  \right)
+    }{
+        p_{0}\left( a_{ij, k}  \right) + p_{\bm{\theta } } \left( a_{ij, k}  \right)  
+    },
+\]
+where
+\[
+    p_{0}\left( a_{ij, \cdot}  \right) = \begin{cases}
+        \Lambda \left( \theta_{0, i} + \theta _{0, j} \right) & \text{if } a_{ij, \cdot} = 1,\\
+        1 - \Lambda \left( \theta_{0, i} + \theta _{0, j} \right) & \text{if } a_{ij, \cdot} = 0,
+    \end{cases}
+\]
+and
+\[
+    p_{\bm{\theta }}\left( a_{ij, \cdot}  \right) = \begin{cases}
+        \Lambda \left( \theta_{i} + \theta _{j} \right) & \text{if } a_{ij,\cdot} = 1,\\
+        1 - \Lambda \left( \theta_{i} + \theta _{j} \right) & \text{if } a_{ij,\cdot} = 0.
+    \end{cases}
+\]
 
 
+The estimation follows \citet[KMP]{kaji/manresa/pouliot:2022:adversarial_est} with the oracle discriminator,
+\[
+    \hat{\bm{\theta }} = \arg\min_{\bm{\theta}} \frac{1}{n \left( n-1 \right) } \sum_{i < j} \log D_{\bm{\theta }} \left( a_{ij}  \right) +  \frac{1}{m n \left( n-1 \right) } \sum_{k=1}^{m} \sum_{i < j} \log  \left( 1 - D_{\bm{\theta}} \left( a_{ij, k, \bm{\theta}} \right)  \right).
+\]
 
+\subsection{Identification}
+
+\citet{chatterjee/diaconis/sly:2011:randomgraph}, \citet{gao:2020:identification}.
 
 \newpage
 \bibliographystyle{chicago}
