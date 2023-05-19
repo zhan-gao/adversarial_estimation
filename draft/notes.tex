@@ -33,13 +33,13 @@ Denote \(\bm{\theta_{0} } = \left(
     \right) 
 \). For given \(\bm{\theta }\), we can generate
 \[
-    \widetilde{u}_{ij,k} \sim \text{i.i.d.}\Lambda\left( \cdot \right),\, i < j,\, k = 1, 2, \cdots, m,
+    \widetilde{u}_{ij,k} \sim \text{i.i.d.}\Lambda\left( \cdot \right),\, i < j,\, k = 1, 2, \cdots, K,
 \]
 where \(\Lambda\left( u \right) = \left( 1 + e^{-u} \right)^{-1} \) is the CDF of the standard logistic distribution. Transform \(\widetilde{u}_{ij, k} \) to \(\widetilde{d}_{ij, k}\) by
 \[
     a_{ij, k, \bm{\theta}} = \I \left\{ \theta _{i} + \theta _{j} > \widetilde{u}_{ij, k}  \right\} .
 \]  
-When \(m = 1\), a single network is generated based on parameter \(\bm{\theta }\).
+When \(K = 1\), a single network is generated based on parameter \(\bm{\theta }\).
 
 The oracle discriminator,
 \[
@@ -68,34 +68,123 @@ and
 
 The estimation follows \citet[KMP]{kaji/manresa/pouliot:2022:adversarial_est} with the oracle discriminator,
 \[
-    \hat{\bm{\theta }} = \arg\min_{\bm{\theta}} \frac{1}{n \left( n-1 \right) } \sum_{i < j} \log D_{\bm{\theta }} \left( a_{ij}  \right) +  \frac{1}{m n \left( n-1 \right) } \sum_{k=1}^{m} \sum_{i < j} \log  \left( 1 - D_{\bm{\theta}} \left( a_{ij, k, \bm{\theta}} \right)  \right).
+    \hat{\bm{\theta }} = \arg\min_{\bm{\theta}} \frac{1}{n \left( n-1 \right) } \sum_{i < j} \log D_{\bm{\theta }} \left( a_{ij}  \right) +  \frac{1}{K n \left( n-1 \right) } \sum_{k=1}^{K} \sum_{i < j} \log  \left( 1 - D_{\bm{\theta}} \left( a_{ij, k, \bm{\theta}} \right)  \right).
 \]
 
-\subsection{Identification}
+% \subsection*{Alternative simulation scheme}
+
+% Instead of simulate the network \(\bm{A}\)
+% Let \( 1 < \underline{m} < m < n\), where \(m\) is the size of the sub-graph to be simulated each time. 
+
+% For \(k = 1, 2, \cdots, K\), 
+% \begin{enumerate}
+%     \item {
+
+%     }
+% \end{enumerate}
+
+% \begin{algorithm}
+
+%     Choose \(\) 
+
+%     Initialize \(k = 1\), \While{\(k \leq m\) }{
+
+%     }
+% \end{algorithm}
+
+\begin{remark}
+    Alternatively, apply the test in \citet{auerbach:2022:testdiffnetwork} for \(\bm{A}\) and \(\bm{A}_{\bm{\theta}}\). 
+\end{remark}
+
+\section{Identification}
 
 \citet{chatterjee/diaconis/sly:2011:randomgraph}, \citet{gao:2020:identification}.
+
+
+\section{Simulation}
+
+
+\noindent \textbf{DGP 1}. Let 
+\begin{equation}
+    A_{ij} = \I  \left\{  \gamma _{i} + \gamma _{j} > u_{ij}  \right\}, 
+\end{equation}
+where \(\gamma _{i} = g \left( X_i \right) + \varepsilon _{i} \). 
+
+\noindent \textbf{DGP 2}. Let 
+\begin{equation}
+    A_{ij} = \I  \left\{ \alpha_{0} + \beta _{0} \lVert X _{i} - X _{j}  \rVert_2 > u_{ij}  \right\}.
+\end{equation}
+
+\noindent \textbf{DGP 3}. Let 
+\begin{equation}
+    A_{ij} = \I  \left\{ \alpha_{0} + \beta _{0} \lVert X _{i} - X _{j}  \rVert_2 + \gamma _{i} + \gamma _{j} > u_{ij}  \right\}, 
+\end{equation}
+where \(\gamma _{i} = g \left( X_i \right) + \varepsilon _{i} \). 
+
 
 \newpage
 \bibliographystyle{chicago}
 \bibliography{ref}
 
-% \newpage
-% \appendix
+\newpage
+\appendix
 
-% \begin{center}
-% {\huge Appendix}
-% \end{center}
+\begin{center}
+{\huge Appendix}
+\end{center}
 
-% \setcounter{table}{0} \renewcommand{\thetable}{A.\arabic{table}} %
-% \setcounter{section}{0} \renewcommand{\thesection}{A.\arabic{section}} %
-% \setcounter{figure}{0} \renewcommand{\thefigure}{A.\arabic{figure}}
+\setcounter{table}{0} \renewcommand{\thetable}{A.\arabic{table}} %
+\setcounter{section}{0} \renewcommand{\thesection}{A.\arabic{section}} %
+\setcounter{figure}{0} \renewcommand{\thefigure}{A.\arabic{figure}}
+
+\section{Idea}
+
+Consider a heterogeneous treatment effect model,
+\begin{equation}
+    Y_{i}  = \tau _{i}  d_{i} + f\left( \bm{X} _i \right) + U_i,\;  i \in \mathcal{N},
+\end{equation}
+where the treatment \(d_i\) is assigned in a random experiment, and \(\bm{X} _{i} \in \mathbb{R}^{p} \) is the observed characteristics. Both treated and control units are drawn from the same super population.
+Denote 
+\(\mathcal{T} =\left\{ i \in \mathcal{N} : d _{i} = 1 \right\} \) and
+\(\mathcal{C} = \mathcal{N} \setminus \mathcal{T} \) 
+as the sets of treated and control units, respectively, and correspondingly \(N_{1} = \vert \mathcal{T}  \vert \) and \(N_{0} = \vert \mathcal{C}  \vert \).
+
+Suppose \(\ \left\{ \tau _{i}  \right\} _{i \in \mathcal{T} }\)  is known, define
+\begin{equation}
+    \tilde{Y}_{i}  = \begin{cases}
+        Y_{i}  & \text{ if }  d_{i} = 0, \\
+        Y_i -\tau _{i} & \text{ if }  d _{i} = 1,
+    \end{cases} \quad i \in \mathcal{N},
+\end{equation}
+then
+\[
+    \tilde{Y}_{i} = f\left( \bm{X} _{i}  \right) + U_i,\, \forall i\in \mathcal{N}, 
+\]
+i.e. \(S_{\mathcal{T} } = \left\{ \tilde{Y} _{i} , \bm{X} _{i}  \right\}_{i\in \mathcal{T} } \) and \(S_{\mathcal{\mathcal{C} } } = \left\{ \tilde{Y} _{i} , \bm{X} _{i}  \right\}_{i\in \mathcal{\mathcal{C} } } \) follow the same data generating process. In this case, one cannot \(S_{\mathcal{T} }\) and \(S_{\mathcal{C} }\). 
+
+In practice, the heterogeneous treatment effects \(\tau _{i} \) are unknown parameter of interests. In \citet{wager/athey:2018:rf_hte}, \(\tau _{i} \) is modeled,
+\[
+    \tau \left( \bm{x} \right)  = \E \left( \tau _{i} \vert \bm{X}_{i} = \bm{x} \right).
+\]
+Following the intuition from the case where \(\left\{ \tau _{i}  \right\}_{i \in \mathcal{T} }\) is known, we propose to adopt the generative adversarial network (GAN) framework \citep{goodfellow:2014:GAN,kaji/manresa/pouliot:2022:adversarial_est} to estimate \(\left\{ \tau _{i}  \right\} _{i\in \mathcal{T} }\). Consider a minimax game between two components, a generator \(G\)  and a discriminator \(D\) , which can be modeled as deep neural networks. The estimation problem is defined as
+\begin{equation}
+    \min_{G\in \mathcal{G} } \max_{D \in \mathcal{D} } 
+    \frac{1}{N_{1}} \sum_{i \in \mathcal{T} } 
+        \log D\left( \tilde{Y} _{i} \left( G\left( \bm{X} _{i}  \right)  \right), \bm{X} _{i}  \right) + 
+    \frac{1}{N_{0}} \sum_{i\in \mathcal{C} } \log \left( 
+        1 - D\left( Y _{i} , \bm{X} _{i}  \right)
+     \right).
+\end{equation}
+
+
+
 
 % \section{Appendix section}
 
 % \newpage
 % \begin{center}
 %     {\huge Online Supplements}
-% \end{center}
+% \end{center}d
 
 % \setcounter{table}{0} \renewcommand{\thetable}{S.\arabic{table}} %
 % \setcounter{section}{0} \renewcommand{\thesection}{S.\arabic{section}} %

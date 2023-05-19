@@ -1,22 +1,5 @@
 \begin{thebibliography}{}
 
-\bibitem[\protect\citeauthoryear{Auerbach}{Auerbach}{2022}]{auerbach:2022:testdiffnetwork}
-Auerbach, E. (2022).
-\newblock Testing for differences in stochastic network structure.
-\newblock {\em Econometrica\/}~{\em 90\/}(3), 1205--1223.
-
-\bibitem[\protect\citeauthoryear{Chatterjee, Diaconis, and Sly}{Chatterjee
-  et~al.}{2011}]{chatterjee/diaconis/sly:2011:randomgraph}
-Chatterjee, S., P.~Diaconis, and A.~Sly (2011).
-\newblock {Random graphs with a given degree sequence}.
-\newblock {\em The Annals of Applied Probability\/}~{\em 21\/}(4), 1400 --
-  1435.
-
-\bibitem[\protect\citeauthoryear{Gao}{Gao}{2020}]{gao:2020:identification}
-Gao, W.~Y. (2020).
-\newblock Nonparametric identification in index models of link formation.
-\newblock {\em Journal of Econometrics\/}~{\em 215\/}(2), 399--413.
-
 \bibitem[\protect\citeauthoryear{Goodfellow, Pouget-Abadie, Mirza, Xu,
   Warde-Farley, Ozair, Courville, and Bengio}{Goodfellow
   et~al.}{2014}]{goodfellow:2014:GAN}
