@@ -16,6 +16,24 @@ Kaji, T., E.~Manresa, and G.~Pouliot (2022).
 \newblock An adversarial approach to structural estimation.
 \newblock {\em arXiv preprint arXiv:2007.06169\/}.
 
+\bibitem[\protect\citeauthoryear{Liang}{Liang}{2018}]{liang:2018:gan_density}
+Liang, T. (2018).
+\newblock How well can generative adversarial networks learn densities: A
+  nonparametric view.
+\newblock {\em arXiv preprint arXiv:1712.08244\/}.
+
+\bibitem[\protect\citeauthoryear{Liang}{Liang}{2021a}]{liang2021well}
+Liang, T. (2021a).
+\newblock How well generative adversarial networks learn distributions.
+\newblock {\em The Journal of Machine Learning Research\/}~{\em 22\/}(1),
+  10366--10406.
+
+\bibitem[\protect\citeauthoryear{Liang}{Liang}{2021b}]{liang:2021:gan_distribution}
+Liang, T. (2021b).
+\newblock How well generative adversarial networks learn distributions.
+\newblock {\em The Journal of Machine Learning Research\/}~{\em 22\/}(1),
+  10366--10406.
+
 \bibitem[\protect\citeauthoryear{Wager and Athey}{Wager and
   Athey}{2018}]{wager/athey:2018:rf_hte}
 Wager, S. and S.~Athey (2018).
@@ -23,5 +41,12 @@ Wager, S. and S.~Athey (2018).
   random forests.
 \newblock {\em Journal of the American Statistical Association\/}~{\em
   113\/}(523), 1228--1242.
+
+\bibitem[\protect\citeauthoryear{Yoon, Jordon, and Van Der~Schaar}{Yoon
+  et~al.}{2018}]{yoon/jordan/vanderschaar:2018:ganite}
+Yoon, J., J.~Jordon, and M.~Van Der~Schaar (2018).
+\newblock Ganite: Estimation of individualized treatment effects using
+  generative adversarial nets.
+\newblock In {\em International conference on learning representations}.
 
 \end{thebibliography}

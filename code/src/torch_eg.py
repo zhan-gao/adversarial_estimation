@@ -1,5 +1,4 @@
 # %%
-
 import torch
 from torch import nn
 from torchvision import datasets, transforms
@@ -7,6 +6,8 @@ from torchvision import datasets, transforms
 # %%
 
 # Check if CUDA is available and set PyTorch to use it
+if torch.cuda.is_available():
+    print("CUDA is found.")
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 
@@ -52,6 +53,24 @@ for e in range(epochs):
         loss.backward()
         optimizer.step()
         
+        running_loss += loss.item()
+    else:
+        print(f"Training loss: {running_loss/len(trainloader)}")
+
+# %%
+epochs = 5
+for e in range(epochs):
+    running_loss = 0
+    for images, labels in trainloader:
+        images, labels = images.to(device), labels.to(device)
+
+        optimizer.zero_grad()
+
+        output = model(images)
+        loss = criterion(output, labels)
+        loss.backward()
+        optimizer.step()
+
         running_loss += loss.item()
     else:
         print(f"Training loss: {running_loss/len(trainloader)}")

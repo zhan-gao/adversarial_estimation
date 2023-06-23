@@ -2,8 +2,6 @@ import numpy as np
 import networkx as nx
 from scipy.special import expit
 
-
-
 # Generate graphs using stochastic block model
 def generate_network_sbm(n, lambda_values):
     # Check if the input lambda_values matches with the input n

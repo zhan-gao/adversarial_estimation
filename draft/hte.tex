@@ -20,13 +20,13 @@
 %     Key words: keyword 1, keyword 2, keyword 3 \\
 %     JEL code: code 1, code 2, code 3
 % }
-\newpage
+% \newpage
 
 \section{Heterogenous treatment effect}
 
 Consider a heterogeneous treatment effect model,
 \begin{equation}
-    Y_{i}  = \tau _{i}  d_{i} + f\left( \bm{X} _i \right) + U_i,\;  i \in \mathcal{N},
+    Y_{i}  = \tau _{i}  d_{i} + f\left( \bm{X} _i \right) + u_i,\;  i \in \mathcal{N},
 \end{equation}
 where the treatment \(d_i\) is assigned in a random experiment, and \(\bm{X} _{i} \in \mathbb{R}^{p} \) is the observed characteristics. Both treated and control units are drawn from the same super population.
 Denote 
@@ -45,12 +45,20 @@ then
 \[
     \tilde{Y}_{i} = f\left( \bm{X} _{i}  \right) + U_i,\, \forall i\in \mathcal{N}, 
 \]
-i.e. \(S_{\mathcal{T} } = \left\{ \tilde{Y} _{i} , \bm{X} _{i}  \right\}_{i\in \mathcal{T} } \) and \(S_{\mathcal{\mathcal{C} } } = \left\{ \tilde{Y} _{i} , \bm{X} _{i}  \right\}_{i\in \mathcal{\mathcal{C} } } \) follow the same data generating process. In this case, one cannot \(S_{\mathcal{T} }\) and \(S_{\mathcal{C} }\). 
+i.e. \(S_{\mathcal{T} } = \left\{ \tilde{Y} _{i} , \bm{X} _{i}  \right\}_{i\in \mathcal{T} } \) and \(S_{\mathcal{\mathcal{C} } } = \left\{ \tilde{Y} _{i} , \bm{X} _{i}  \right\}_{i\in \mathcal{\mathcal{C} } } \) follow the same data generating process. In this case, one cannot distinguish \(S_{\mathcal{T} }\) and \(S_{\mathcal{C} }\). 
 
 In practice, the heterogeneous treatment effects \(\tau _{i} \) are unknown parameter of interests. In \citet{wager/athey:2018:rf_hte}, \(\tau _{i} \) is modeled,
 \[
     \tau \left( \bm{x} \right)  = \E \left( \tau _{i} \vert \bm{X}_{i} = \bm{x} \right).
 \]
+\begin{remark}
+    Let \(\tau _{i}  = \tau \left( \bm{X}_{i}  \right) + v _{i} \),
+    \begin{equation*}
+        Y _{i}  = \tau \left( \bm{X} _{i}  \right) d_{i} + f \left( \bm{X} \right) + u_{i} + v_{i} d _{i}.  
+    \end{equation*}
+    The question is whether the difference \(v_{i} d_{i} \) is learnable.
+\end{remark}
+
 Following the intuition from the case where \(\left\{ \tau _{i}  \right\}_{i \in \mathcal{T} }\) is known, we propose to adopt the generative adversarial network (GAN) framework \citep{goodfellow:2014:GAN,kaji/manresa/pouliot:2022:adversarial_est} to estimate \(\left\{ \tau _{i}  \right\} _{i\in \mathcal{T} }\). Consider a minimax game between two components, a generator \(G\)  and a discriminator \(D\) , which can be modeled as deep neural networks. The estimation problem is defined as
 \begin{equation}
     \min_{G\in \mathcal{G} } \max_{D \in \mathcal{D} } 
@@ -58,8 +66,13 @@ Following the intuition from the case where \(\left\{ \tau _{i}  \right\}_{i \in
         \log D\left( \tilde{Y} _{i} \left( G\left( \bm{X} _{i}  \right)  \right), \bm{X} _{i}  \right) + 
     \frac{1}{N_{0}} \sum_{i\in \mathcal{C} } \log \left( 
         1 - D\left( Y _{i} , \bm{X} _{i}  \right)
-     \right).
+     \right),
 \end{equation}
+in which the inner maximization problem looks for a discriminator distinguishing treated and control samples whereas the outer minimization trains a generator that adversarially generates treatment effects \(\tau _{i} \). 
+
+\section{Literature}
+
+\citet{yoon/jordan/vanderschaar:2018:ganite} use GAN to estimate the individual treatment effect by generating the counterfactual outcomes. \citet{liang2021well,liang:2021:gan_distribution,liang:2018:gan_density} set up the theoretical ground. \citet{liang:2021:gan_distribution} focus on the moments of the target distribution, whereas we are interested in distinguishing two distributions.
 
 \newpage
 \bibliographystyle{chicago}

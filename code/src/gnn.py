@@ -1,8 +1,11 @@
+# %%
 import torch
 from torch import nn
 import torch.nn.functional as F
 from torch_geometric.nn import GCNConv, GATConv
 from torch_geometric.data import Data, DataLoader
+
+# %%
 
 # Define a Graph Neural Network model
 class GNNClassifier(nn.Module):
@@ -35,6 +38,7 @@ class GraphDataset(torch.utils.data.Dataset):
         return len(self.graphs)
 
 # Define hyperparameters and create the model
+n = 20
 num_features = n
 hidden_size = 16
 num_classes = 2
